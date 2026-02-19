@@ -1,0 +1,45 @@
+# MAFT Pipeline Configuration
+# Generalization and Hyperparameter Settings
+
+paths:
+  base_dir: "."
+  working_dir: "working"
+  synthetic_data_dir: "../synthetic_data_v2"
+  metadata_path: "metadata.csv"
+  weights_path: "maft_advanced_v3.pth"
+  ema_weights_path: "maft_advanced_v3_ema.pth"
+  log_file: "training_v3.log"
+
+training:
+  random_state: 42
+  batch_size: 64
+  num_epochs: 60
+  learning_rate: 0.0005
+  weight_decay: 1e-4
+  warmup_epochs: 5
+  grad_clip_value: 1.0
+  use_mixed_precision: true
+  num_workers: 0  # Set to 0 for Windows compatibility
+  pin_memory: true
+
+model:
+  feature_dim: 320
+  n_heads: 8
+  n_layers: 6
+  dropout: 0.3
+  ema_decay: 0.999
+  # Loss weights
+  orientation_loss_weight: 1.0
+  contrastive_weight: 0.3
+  contrastive_margin: 0.2
+
+augmentation:
+  modality_dropout_rate: 0.4
+  mixup_alpha: 0.2
+  image_size: [128, 128]
+  rotation_range: 15
+
+dataset:
+  test_set_size: 0.2
+  validation_set_size: 0.15
+  max_ship_assets: 621
